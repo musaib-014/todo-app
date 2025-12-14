@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
 import "./App.css";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 function App() {
   const [todos, setTodos] = useState(() => {
@@ -58,11 +59,13 @@ function App() {
         <button onClick={() => setFilter("completed")}>Completed</button>
       </div>
       <button onClick={clearCompleted}>Clear Completed</button>
-      <TodoList
-        todos={filteredTodos}
-        onDeleteTodo={deleteTodo}
-        onToggleTodo={toggleTodo}
-      />
+      <ErrorBoundary>
+        <TodoList
+          todos={filteredTodos}
+          onDeleteTodo={deleteTodo}
+          onToggleTodo={toggleTodo}
+        />
+      </ErrorBoundary>
     </div>
   );
 }
