@@ -1,11 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
 import "./App.css";
 
 function App() {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(() => {
+    const saved = localStorage.getItem("todos");
+    return saved ? JSON.parse(saved) : [];
+  });
   const [filter, setFilter] = useState("all");
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
+
+  function clearCompleted() {
+    setTodos((prev) => prev.filter((todo) => !todo.completed));
+  }
 
   const filteredTodos = todos.filter((todo) => {
     if (filter === "active") return !todo.completed;
@@ -40,11 +51,13 @@ function App() {
       <h1> Todo App</h1>
       <p>Total Todos: {todos.length}</p>
       <TodoInput onAddTodo={addTodo} />
+
       <div className="filters">
         <button onClick={() => setFilter("all")}>All</button>
         <button onClick={() => setFilter("active")}>Active</button>
         <button onClick={() => setFilter("completed")}>Completed</button>
       </div>
+      <button onClick={clearCompleted}>Clear Completed</button>
       <TodoList
         todos={filteredTodos}
         onDeleteTodo={deleteTodo}

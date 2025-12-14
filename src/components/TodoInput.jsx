@@ -6,7 +6,7 @@ function TodoInput({ onAddTodo }) {
   function handleSubmit(e) {
     e.preventDefault();
 
-    if (text.trim === "") return;
+    if (text.trim() === "") return;
 
     onAddTodo(text);
     setText("");
@@ -20,7 +20,9 @@ function TodoInput({ onAddTodo }) {
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
-      <button type="submit">Add</button>
+      <button type="submit" disabled={!text.trim()}>
+        Add
+      </button>
     </form>
   );
 }
