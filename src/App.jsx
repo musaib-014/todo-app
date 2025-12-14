@@ -5,6 +5,14 @@ import TodoList from "./components/TodoList";
 function App() {
   const [todos, setTodos] = useState([]);
 
+  function toggleTodo(id) {
+    setTodos((prev) =>
+      prev.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
+  }
+
   function deleteTodo(id) {
     setTodos((prev) => prev.filter((todo) => todo.id !== id));
   }
@@ -24,7 +32,11 @@ function App() {
       <h1> Todo App</h1>
       <p>Total Todos: {todos.length}</p>
       <TodoInput onAddTodo={addTodo} />
-      <TodoList todos={todos} onDeleteTodo={deleteTodo} />
+      <TodoList
+        todos={todos}
+        onDeleteTodo={deleteTodo}
+        onToggleTodo={toggleTodo}
+      />
     </div>
   );
 }
