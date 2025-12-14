@@ -13,12 +13,13 @@ class ErrorBoundary extends React.Component {
   componentDidCatch(error, info) {
     console.error("Error caught by Error Boundary:", error, info);
   }
+
   render() {
     if (this.state.hasError) {
       return <h2>Something went wrong 😑</h2>;
     }
 
-    return this.props.childern;
+    return this.props.children;
   }
 }
 
