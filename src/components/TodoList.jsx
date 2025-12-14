@@ -1,10 +1,10 @@
 import TodoItem from "./TodoItem";
 
-function TodoList({ todos }) {
+function TodoList({ todos, onDeleteTodo }) {
   return (
     <ul>
       {todos.map((todo) => (
-        <TodoItem todo={todo} key={todo.id} />
+        <TodoItem todo={todo} key={todo.id} onDelete={onDeleteTodo} />
       ))}
     </ul>
   );
