@@ -1,12 +1,13 @@
+import "./TodoItems.css";
 function TodoItem({ todo, onDelete, onToggle }) {
   return (
-    <li>
+    <li className={`todo-item ${todo.completed ? "completed" : ""}`}>
       <input
         type="checkbox"
         checked={todo.completed}
         onChange={() => onToggle(todo.id)}
       />
-      {todo.text}
+      <span>{todo.text}</span>
       <button onClick={() => onDelete(todo.id)}>Delete</button>
     </li>
   );

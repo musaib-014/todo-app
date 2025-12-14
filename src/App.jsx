@@ -1,6 +1,7 @@
 import { useState } from "react";
 import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
+import "./App.css";
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -35,7 +36,7 @@ function App() {
     ]);
   }
   return (
-    <div>
+    <div className="app">
       <h1> Todo App</h1>
       <p>Total Todos: {todos.length}</p>
       <TodoInput onAddTodo={addTodo} />
