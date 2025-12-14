@@ -4,6 +4,13 @@ import TodoList from "./components/TodoList";
 
 function App() {
   const [todos, setTodos] = useState([]);
+  const [filter, setFilter] = useState("all");
+
+  const filteredTodos = todos.filter((todo) => {
+    if (filter === "active") return !todo.completed;
+    if (filter === "completed") return todo.completed;
+    return true;
+  });
 
   function toggleTodo(id) {
     setTodos((prev) =>
@@ -32,8 +39,13 @@ function App() {
       <h1> Todo App</h1>
       <p>Total Todos: {todos.length}</p>
       <TodoInput onAddTodo={addTodo} />
+      <div className="filters">
+        <button onClick={() => setFilter("all")}>All</button>
+        <button onClick={() => setFilter("active")}>Active</button>
+        <button onClick={() => setFilter("completed")}>Completed</button>
+      </div>
       <TodoList
-        todos={todos}
+        todos={filteredTodos}
         onDeleteTodo={deleteTodo}
         onToggleTodo={toggleTodo}
       />
